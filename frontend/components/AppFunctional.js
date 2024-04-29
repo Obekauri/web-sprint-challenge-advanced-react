@@ -11,6 +11,7 @@ export default function AppFunctional(props) {
   const [inputEmail, setInputEmail] = useState({
     email: ''
   })
+  const [time, setTime] = useState('times')
 
 
   function move(evt) {
@@ -48,6 +49,12 @@ export default function AppFunctional(props) {
       return
     }
     setSteps(steps + 1)
+
+    if(steps == 0){
+      setTime('time');
+    }else{
+      setTime('times')
+    }
     
     if(evt.target.id === 'reset'){
       setChangePosition(4)
@@ -120,7 +127,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">{`Coordinates (${yPos}, ${xPos})`}</h3>
-        <h3 id="steps">{`You moved ${steps} times`}</h3>
+        <h3 id="steps">{`You moved ${steps} ${time}`}</h3>
       </div>
       <div id="grid">
         {
@@ -132,7 +139,7 @@ export default function AppFunctional(props) {
         }
       </div>
       <div className="info">
-        <h3 id="message"> {message} </h3>
+        <h3 id="message">{message}</h3>
       </div>
       <div id="keypad" onClick={move}>
         <button id="left">LEFT</button>
