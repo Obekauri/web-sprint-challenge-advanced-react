@@ -111,9 +111,6 @@ export default function AppFunctional(props) {
         body: JSON.stringify(payload)
     })
     .then(response => {
-        if (!response.ok) {
-            setMessage('Ouch: email must be a valid email');
-        }
         return response.json();
     })
     .then(data => {
