@@ -119,7 +119,6 @@ export default function AppFunctional(props) {
     .then(data => {
         setMessage(data.message)
     })
-    setMessage('')
     evt.target[0].value = ''
   }
 
