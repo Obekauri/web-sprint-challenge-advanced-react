@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+
 
 export default function AppFunctional(props) {
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
@@ -57,6 +59,7 @@ export default function AppFunctional(props) {
     }
     
     if(evt.target.id === 'reset'){
+      document.getElementById('email').value = '';
       setChangePosition(4)
       setMessage("")
       setSteps(0)
@@ -93,30 +96,31 @@ export default function AppFunctional(props) {
 
 
   function onSubmit(evt) {
-    // Use a POST request to send a payload to the server.
     evt.preventDefault();
+
     const payload = {
       x: yPos,
       y: xPos,
       steps: steps,
       email: inputEmail.email
     };
-    
-    // Send a POST request to the endpoint
-    fetch(' https://advanced-react-grid.herokuapp.com/api/result', {
-        method: 'POST',
+  
+    // Send a POST request to the endpoint using Axios
+    axios.post('http://localhost:9000/api/result', payload, {
         headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    })
-    .then(response => {
-        return response.json();
-    })
-    .then(data => {
-        setMessage(data.message)
-    })
-    evt.target[0].value = ''
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        // If the request is successful, update the message state with the received data
+        setMessage(response.data.message);
+      })
+      .catch(error => {
+        // If an error occurs, log the error to the console
+        setMessage(error.response.data.message);
+      });
+    document.getElementById('email').value = '';
+
   }
 
   return (

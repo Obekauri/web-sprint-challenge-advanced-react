@@ -1,7 +1,8 @@
-import React from "react"
-import '@testing-library/jest-dom'
-import { render, screen } from "@testing-library/react"
+import React from 'react'
 import AppFunctional from "./AppFunctional"
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
+
 
 describe('MyComponent', () => {
   
@@ -29,6 +30,4 @@ describe('MyComponent', () => {
     render(<AppFunctional />);
     screen.getByText('reset')
   })
-
-
 });
